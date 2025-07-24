@@ -34,5 +34,5 @@ I'm **Bavitheswari**, an aspiring software developer currently pursuing a B.Tech
 - 📧 Email: bavi15032006@gail.com  
 - 🌐 LinkedIn: www.linkedin.com/in/bavitheswari-m-85173b32a  
 - 🔗 GitHub: https://github.com/Bavitheswari
-
+  
 > ✨ “Designed with love and pixels, built by curiosity and code.” ✨
