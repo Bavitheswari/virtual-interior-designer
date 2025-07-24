@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Virtual Interior Designer</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+        }
+        nav {
+            background-color: #333;
+            padding: 10px 20px;
+        }
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            margin: 0 15px;
+            font-size: 18px;
+        }
+        nav a:hover {
+            text-decoration: underline;
+        }
+        .container {
+            padding: 20px;
+        }
+        h1, h2 {
+            color: #062d87;
+        }
+        .form-group {
+            margin: 15px 0;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        input, select, textarea {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            background-color: #5cb85c;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #4cae4c;
+        }
+        .gallery {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        .gallery-item {
+            flex: 1 1 calc(33% - 30px);
+            background: #fff;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        .gallery-item img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 5px;
+        }
+        .recommendation-section {
+            margin-bottom: 20px;
+        }
+        .interactive-section {
+            margin: 20px 0;
+            padding: 15px;
+            background: #fff;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="#home" data-target="home">Home</a>
+        <a href="#preferences" data-target="preferences">Set Preferences</a>
+        <a href="#recommendations" data-target="recommendations">Recommendations</a>
+        <a href="#visualizer" data-target="visualizer">Room Visualizer</a>
+    </nav>
+
+    <div class="container">
+        <!-- Home Page -->
+        <div id="home">
+            <h1>Welcome to Virtual Interior Designer</h1>
+            <p>Your one-stop solution to personalize your home interiors. Get design ideas tailored to your preferences!</p>
+            <div class="gallery">
+                <div class="gallery-item">
+                    <img src="modern.jpg" alt="Modern Living Room">
+                    <p>Modern Living Room with minimalistic furniture and bright accents.</p>
+                </div>
+                <div class="gallery-item">
+                    <img src="cozy.jpg" alt="Cozy Bedroom">
+                    <p>Cozy Bedroom featuring neutral tones and soft lighting.</p>
+                </div>
+                <div class="gallery-item">
+                    <img src="kitchen.jpg" alt="Elegant Kitchen">
+                    <p>Elegant Kitchen with sleek cabinets and a clean design.</p>
+                </div>
+                <div class="gallery-item">
+                    <img src="devo.jpg" alt="Devotional pooja room">
+                    <p>Rituals of devotional pooja rooms.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Preferences Page -->
+        <div id="preferences" style="display: none;">
+            <h2>Set Your Preferences</h2>
+            <form id="preferencesForm">
+                <div class="form-group">
+                    <label for="roomLength">Room Length (in feet):</label>
+                    <input type="number" id="roomLength" name="roomLength" required>
+                </div>
+                <div class="form-group">
+                    <label for="roomWidth">Room Width (in feet):</label>
+                    <input type="number" id="roomWidth" name="roomWidth" required>
+                </div>
+                <div class="form-group">
+                    <label for="roomType">Room Type:</label>
+                    <select id="roomType" name="roomType">
+                        <option value="living">Living Room</option>
+                        <option value="bedroom">Bedroom</option>
+                        <option value="kitchen">Kitchen</option>
+                        <option value="bathroom">Bathroom</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="colorScheme">Preferred Color Scheme:</label>
+                    <select id="colorScheme" name="colorScheme">
+                        <option value="warm">Warm (e.g., red, orange, yellow)</option>
+                        <option value="cool">Cool (e.g., blue, green, purple)</option>
+                        <option value="neutral">Neutral (e.g., white, gray, beige)</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="style">Preferred Style:</label>
+                    <select id="style" name="style">
+                        <option value="modern">Modern</option>
+                        <option value="traditional">Traditional</option>
+                        <option value="minimalist">Minimalist</option>
+                        <option value="bohemian">Bohemian</option>
+                        <option value="industrial">Industrial</option>
+                    </select>
+                </div>
+                <button type="submit">Save Preferences</button>
+            </form>
+        </div>
+
+        <!-- Recommendations Page -->
+        <div id="recommendations" style="display: none;">
+            <h2>Design Recommendations</h2>
+            <div id="recommendationOutput">
+                <div class="recommendation-section">
+                    <h3>Furniture Suggestions</h3>
+                    <ul id="furnitureList"></ul>
+                </div>
+                <div class="recommendation-section">
+                    <h3>Lighting Ideas</h3>
+                    <ul id="lightingList"></ul>
+                </div>
+                <div class="recommendation-section">
+                    <h3>Decor Options</h3>
+                    <ul id="decorList"></ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Room Visualizer Page -->
+        <div id="visualizer" style="display: none;">
+            <h2>Room Visualizer</h2>
+            <p>Experiment with color schemes and layouts interactively!</p>
+            <div class="interactive-section">
+                <label for="wallColor">Select Wall Color:</label>
+                <input type="color" id="wallColor" name="wallColor">
+                <label for="furnitureColor">Select Furniture Color:</label>
+                <input type="color" id="furnitureColor" name="furnitureColor">
+                <button id="applyColors">Apply Colors</button>
+            </div>
+            <div class="interactive-section" id="visualizerPreview" style="background: #eee; padding: 20px;">
+                <h3>Preview:</h3>
+                <div id="previewBox" style="width: 200px; height: 200px; margin: 10px auto; background: white; border: 1px solid #ccc; display: flex; align-items: center; justify-content: center;">
+                    Your Room
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const pages = {
+            home: document.getElementById('home'),
+            preferences: document.getElementById('preferences'),
+            recommendations: document.getElementById('recommendations'),
+            visualizer: document.getElementById('visualizer')
+        };
+
+        document.querySelectorAll('nav a').forEach(link => {
+            link.addEventListener('click', (event) => {
+                event.preventDefault();
+                const target = link.getAttribute('data-target');
+
+                Object.keys(pages).forEach(page => {
+                    pages[page].style.display = page === target ? 'block' : 'none';
+                });
+            });
+        });
+
+        document.getElementById('preferencesForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const roomLength = parseFloat(document.getElementById('roomLength').value);
+            const roomWidth = parseFloat(document.getElementById('roomWidth').value);
+            const area = roomLength * roomWidth;
+            const roomType = document.getElementById('roomType').value;
+            const colorScheme = document.getElementById('colorScheme').value;
+            const style = document.getElementById('style').value;
+
+            let furniture;
+            if (area < 100) {
+                furniture = ["A small loveseat or armchair.", "Compact coffee table.", "Wall-mounted shelves."];
+            } else if (area <= 300) {
+                furniture = ["A medium-sized sofa or sectional.", "Coffee table with storage.", "Accent chairs and side tables."];
+            } else {
+                furniture = ["A large sectional sofa.", "Spacious coffee table.", "Bookshelves and floor lamps."];
+            }
+
+            const lighting = ["Overhead lighting.", "Task lighting.", "Accent lighting."];
+            const decor = ["Wall art.", "Decorative pillows.", "Indoor plants.", "Rugs for warmth."];
+
+            document.getElementById('furnitureList').innerHTML = furniture.map(item => `<li>${item}</li>`).join('');
+            document.getElementById('lightingList').innerHTML = lighting.map(item => `<li>${item}</li>`).join('');
+            document.getElementById('decorList').innerHTML = decor.map(item => `<li>${item}</li>`).join('');
+
+            Object.keys(pages).forEach(page => {
+                pages[page].style.display = page === 'recommendations' ? 'block' : 'none';
+            });
+        });
+
+        document.getElementById('applyColors').addEventListener('click', () => {
+            const wallColor = document.getElementById('wallColor').value;
+            const furnitureColor = document.getElementById('furnitureColor').value;
+
+            const previewBox = document.getElementById('previewBox');
+            previewBox.style.background = wallColor;
+            previewBox.style.color = furnitureColor;
+            previewBox.innerHTML = '<span style="color:' + furnitureColor + '">Your Room</span>';
+        });
+    </script>
+</body>
+</html>
